@@ -16,7 +16,7 @@ export class AuthService {
 
   }
   async login(userDto: CreateUserDto) {
-    const user = await this.validateUser(userDto);
+    const user = await this.userService.getUserByEmail(userDto.email);//await this.validateUser(userDto);
     return this.generateToken(user);
   }
 
@@ -35,16 +35,5 @@ export class AuthService {
     return {
       token: this.jwtService.sign(meta)
     };
-  }
-
-  private async validateUser(userDto: CreateUserDto) {
-    const user = await this.userService.getUserByEmail(userDto.email);
-    const passwordEquals = await bcrypt.compare(userDto.password, user.password);
-
-    if (user && passwordEquals) {
-      return user;
-    }
-
-    throw new UnauthorizedException({message: "invalid data"});
   }
 }

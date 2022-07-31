@@ -21,11 +21,11 @@ import * as path from 'path';
 @Module({
   controllers: [
     AppController,
-    PostsController,
+    //PostsController,
   ],
   providers: [
     AppService,
-    PostsService,
+    //PostsService,
   ],
   imports: [
     ConfigModule.forRoot({
